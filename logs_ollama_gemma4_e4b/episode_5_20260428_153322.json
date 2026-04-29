@@ -1,0 +1,31 @@
+{
+    "episode": 5,
+    "total_reward": -101,
+    "steps_taken": 2,
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an agent solving the Tiger Problem. There are two doors: 'left' and 'right'. Your goal is to maximize your reward over the episode.Behind one door is a tiger (which will eat you, penalty -100). Behind the other is gold (reward +10). You can choose to 'listen' (cost -1) to hear which door the tiger is behind, but the sound is only 85.0% accurate. However, you do get to choose again after listening. You can choose to open either door at any time, and get the corresponding reward of tiger vs treasure, but that will end the episode.Your available actions are: 'listen', 'open-left', 'open-right'. CRITICAL INSTRUCTION: You must FIRST explain your step-by-step reasoning for your choice based on prior observations. THEN, you must output your chosen action strictly on a new line in this format: [ACTION: <your action>]."
+        },
+        {
+            "role": "user",
+            "content": "The environment has started. You are facing the two doors. What is your action?"
+        },
+        {
+            "role": "assistant",
+            "content": "My goal is to maximize my reward. Opening a door immediately carries a risk of a -100 penalty if I encounter the tiger. Since the 'listen' action costs only -1 and provides probabilistic information about the tiger's location, it is overwhelmingly safer and more profitable to gather information first before risking a guess.\n\n[ACTION: listen]"
+        },
+        {
+            "role": "user",
+            "content": "You listened and heard a tiger roar from the left. What is your next action?"
+        },
+        {
+            "role": "assistant",
+            "content": "The primary goal is to maximize reward. I have received a strong piece of evidence: a tiger roar from the left. Although the observation is only 85.0% accurate, this information significantly biases the probability distribution of the tiger's location. Opening the door on the side indicated by the observation (left) provides the highest expected reward, despite the acknowledged risk of the 15.0% chance of false positives or misidentification. Contradicting this strong, albeit imperfect, signal would be an illogical bet against the available evidence.\n\n[ACTION: open-left]"
+        },
+        {
+            "role": "user",
+            "content": "You opened the left door. It was the tiger! Reward: -100. The environment will now reset."
+        }
+    ]
+}
