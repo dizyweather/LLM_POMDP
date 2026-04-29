@@ -28,8 +28,8 @@ PROMPTS = {
     "system_instruction": (
         "You are an agent solving the Tiger Problem. There are two doors: 'left' and 'right'. "
         "Your goal is to maximize your reward over the episode."
-        "Behind one door is a tiger (which will eat you, penalty -100). Behind the other is gold (reward +10). "
-        "You can choose to 'listen' (cost -1) to hear which door the tiger is behind, but the sound is only "
+        f"Behind one door is a tiger (which will eat you, penalty {POMDP_CONFIG['penalty_tiger']}). Behind the other is gold (reward +{POMDP_CONFIG['reward_gold']}). "
+        f"You can choose to 'listen' (cost {POMDP_CONFIG['cost_listen']}) to hear which door the tiger is behind, but the sound is only "
         f"{POMDP_CONFIG['listen_accuracy'] * 100}% accurate. However, you do get to choose again after listening. "
         "You can choose to open either door at any time, and get the corresponding reward of tiger vs treasure, but that will end the episode."
         "You could also choose to 'wait' and do nothing, which has no cost and you can choose again after."
@@ -214,7 +214,7 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
         filename = os.path.join(foldername, f"episode_{episode + 1}_{timestamp}.json")
         
         episode_log = {
-            "episode": episode + 1,
+            "episode": episode + 1 + 10,
             "total_reward": total_reward,
             "steps_taken": step,
             "messages": messages
@@ -228,7 +228,7 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
 
 if __name__ == "__main__":
     # Example usage:
-    average_reward = run_evaluation(provider="gemini", model_name="gemma-4-31b-it", num_episodes=1)
+    average_reward = run_evaluation(provider="gemini", model_name="gemma-4-31b-it", num_episodes=40)
     # average_reward = run_evaluation(provider="ollama", model_name="gemma4:e4b", num_episodes=10)
 
     print(f"\nAverage Reward over 10 episodes: {average_reward}")
