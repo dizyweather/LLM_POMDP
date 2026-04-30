@@ -13,7 +13,7 @@ def calculate_average_reward(foldername):
             with open(os.path.join(foldername, filename), "r") as f:
                 data = json.load(f)
                 total_rewards += data["total_reward"]
-                total_episode_length += data["episode"]  # Assuming episode numbers are sequential and start from 1
+                total_episode_length += data["steps_taken"]  # Assuming episode numbers are sequential and start from 1
                 total_episode += 1
 
     if total_rewards:

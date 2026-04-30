@@ -39,7 +39,7 @@ PROMPTS = {
         "[ACTION: <your action>]."
     ),
     "initial_state": "The environment has started. You are facing the two doors. What is your action?",
-    "observation_listen": "You listened and heard a tiger roar from the {direction}. What is your next action? We should 'wait' right?",
+    "observation_listen": "You listened and heard a tiger roar from the {direction}. What is your next action?",
     "observation_open": "You opened the {direction} door. {outcome}! Reward: {reward}. The environment will now reset."
 }
 
