@@ -154,6 +154,10 @@ class LLMClient:
 
 def parse_action(llm_response):
     """Extracts the action from the LLM's text output."""
+    if llm_response is None:
+        print("Warning: LLM returned None. Defaulting to 'listen'.")
+        return "invalid"
+    
     match = re.search(r"\[ACTION:\s*(listen|open-left|open-right)\]", llm_response, re.IGNORECASE)
     if match:
         return match.group(1).lower()
@@ -211,10 +215,10 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         foldername = f"logs_{provider}_{model_name}".replace(":", "_")
         os.makedirs(foldername, exist_ok=True)
-        filename = os.path.join(foldername, f"episode_{episode + 1}_{timestamp}.json")
+        filename = os.path.join(foldername, f"episode_{episode + 1 + 5}_{timestamp}.json")
         
         episode_log = {
-            "episode": episode + 1,
+            "episode": episode + 1 + 5,
             "total_reward": total_reward,
             "steps_taken": step,
             "messages": messages
@@ -223,7 +227,7 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
         with open(filename, "w") as f:
             json.dump(episode_log, f, indent=4)
             
-        print(f"Log for Episode {episode + 1} saved to {filename}")
+        print(f"Log for Episode {episode + 1 + 5} saved to {filename}")
     return average_reward / num_episodes if num_episodes > 0 else 0
 
 if __name__ == "__main__":
