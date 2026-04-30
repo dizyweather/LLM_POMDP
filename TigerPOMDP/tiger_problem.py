@@ -214,7 +214,7 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
         filename = os.path.join(foldername, f"episode_{episode + 1}_{timestamp}.json")
         
         episode_log = {
-            "episode": episode + 1 + 10,
+            "episode": episode + 1,
             "total_reward": total_reward,
             "steps_taken": step,
             "messages": messages
@@ -228,7 +228,7 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
 
 if __name__ == "__main__":
     # Example usage:
-    average_reward = run_evaluation(provider="gemini", model_name="gemma-4-31b-it", num_episodes=40)
-    # average_reward = run_evaluation(provider="ollama", model_name="gemma4:e4b", num_episodes=10)
+    average_reward = run_evaluation(provider="gemini", model_name="gemma-4-26b-a4b-it", num_episodes=25)
+    # average_reward = run_evaluation(provider="ollama", model_name="gemma4:e4b", num_episodes=15)
 
     print(f"\nAverage Reward over 10 episodes: {average_reward}")
