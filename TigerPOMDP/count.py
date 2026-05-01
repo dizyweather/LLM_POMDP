@@ -25,5 +25,5 @@ def calculate_average_reward(foldername):
         print("No JSON files found in the folder.")
 
 if __name__ == "__main__":
-    foldername = "TigerPOMDP/logs_gemini_gemma-4-31b-it"
-    print(calculate_average_reward(foldername))
+    foldername = "TigerPOMDP/logs_gemini_gemma-4-31b-it"  # Change this to your target folder
+    calculate_average_reward(foldername)

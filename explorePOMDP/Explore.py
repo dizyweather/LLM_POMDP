@@ -200,4 +200,4 @@ def run_localization_episode(grid_map, model_name="gemma-4-31b-it", max_steps=15
 if __name__ == "__main__":
    
     # Test on the 5x5 grid
-    run_localization_episode(grid_map=generate_map(20, 20, wall_density=0), num_episodes=5, arena_name="20x20")
+    run_localization_episode(grid_map=generate_map(30, 30, wall_density=0), num_episodes=5, arena_name="30x30")
