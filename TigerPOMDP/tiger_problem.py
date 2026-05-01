@@ -215,10 +215,10 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         foldername = f"logs_{provider}_{model_name}".replace(":", "_")
         os.makedirs(foldername, exist_ok=True)
-        filename = os.path.join(foldername, f"episode_{episode + 1 + 5}_{timestamp}.json")
+        filename = os.path.join(foldername, f"episode_{episode + 1 + 10}_{timestamp}.json")
         
         episode_log = {
-            "episode": episode + 1 + 5,
+            "episode": episode + 1 + 10,
             "total_reward": total_reward,
             "steps_taken": step,
             "messages": messages
@@ -227,12 +227,12 @@ def run_evaluation(provider="ollama", model_name="llama3", num_episodes=1):
         with open(filename, "w") as f:
             json.dump(episode_log, f, indent=4)
             
-        print(f"Log for Episode {episode + 1 + 5} saved to {filename}")
+        print(f"Log for Episode {episode + 1 + 10} saved to {filename}")
     return average_reward / num_episodes if num_episodes > 0 else 0
 
 if __name__ == "__main__":
     # Example usage:
-    average_reward = run_evaluation(provider="gemini", model_name="gemma-4-26b-a4b-it", num_episodes=25)
+    average_reward = run_evaluation(provider="gemini", model_name="gemma-4-26b-a4b-it", num_episodes=15)
     # average_reward = run_evaluation(provider="ollama", model_name="gemma4:e4b", num_episodes=15)
 
     print(f"\nAverage Reward over 10 episodes: {average_reward}")

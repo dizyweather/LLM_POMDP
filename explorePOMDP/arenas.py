@@ -1,8 +1,8 @@
 # arenas.py
 import random
 
-def generate_items(seed=42, width=10, height=10):
-    random.seed(seed)
+def generate_items(width=10, height=10):
+    
     # Create exactly 25 of each category (100 total)
     item_pool = {"none": 0.5, "desk": 0.2, "plant":0.1, "trashcan": 0.2}
     
@@ -102,7 +102,7 @@ def print_ascii_map(grid, width, height):
 # 1. THE 3x3 ARENA 
 # walls_3x3 = [((0,1), (0,2)), ((1,2), (2,2)), ((0,0), (0,1))]
 walls_3x3 = []
-items_3x3 = generate_items(seed=0, width=3, height=3)
+items_3x3 = generate_items(width=3, height=3)
 MAP_3X3 = build_grid_map(3, 3, walls_3x3, items_3x3)
 
 # --- Map Visualization (3x3) ---
@@ -117,7 +117,7 @@ walls_5x5 = [
     # ((1,1), (1,2)), ((2,1), (2,2)), ((3,1), (3,2)), 
     # ((2,3), (3,3)), ((2,4), (3,4))                  
 ]
-items_5x5 = generate_items(seed=0, width=5, height=5)
+items_5x5 = generate_items(width=5, height=5)
 MAP_5X5 = build_grid_map(5, 5, walls_5x5, items_5x5)
 
 # --- Map Visualization (5x5) ---
@@ -139,11 +139,11 @@ walls_10x10 = [
     ((5,5), (5,6)), ((6,5), (6,6))                  
 ]
 
-items_10x10 = generate_items(seed=0, width=10, height=10)
+items_10x10 = generate_items(width=10, height=10)
 MAP_10X10 = build_grid_map(10, 10, walls_10x10, items_10x10)
 
-def generate_map(width, height, wall_density=0.1, seed=42):
-    random.seed(seed)
+def generate_map(width, height, wall_density=0.1):
+    
     walls = []
     for x in range(width):
         for y in range(height):
@@ -158,7 +158,7 @@ def generate_map(width, height, wall_density=0.1, seed=42):
                     walls.append(((x, y), (x, y - 1)))
                 elif direction == "W" and x - 1 >= 0:
                     walls.append(((x, y), (x - 1, y)))
-    items = generate_items(seed=seed, width=width, height=height)
+    items = generate_items( width=width, height=height)
     return build_grid_map(width, height, walls, items)
 if __name__ == "__main__":
     # print_ascii_map(MAP_3X3, 3, 3)

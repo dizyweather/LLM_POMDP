@@ -3,7 +3,6 @@ import os
 import json
 import random
 import re
-import argparse
 import datetime
 from google import genai
 from google.genai import types
@@ -102,6 +101,7 @@ and move-W is (-1, 0).
 CRITICAL INSTRUCTIONS:
 1. Every turn, update a Candidate List of possible states formatted as (x,y).
 2. Explicitly write out your logic for eliminating coordinates. Example: "I moved N. If I was at (1,1), I am now at (1,2). (1,2) has a Desk. My observation says 'None'. I eliminate (1,1) from my original list."
+3. Your job is to reduce the maximum amount of uncertainty each turn. Therefore your movement decisions should be based on which paths will eliminate the most candidates in the next observation. Explain your reasoning step-by-step each turn.
 3. When exactly 1 candidate remains, output: [ACTION: localize(x,y)]
 4. Output your action strictly on a new line at the very end in this format: [ACTION: <your action>]."""
     return prompt

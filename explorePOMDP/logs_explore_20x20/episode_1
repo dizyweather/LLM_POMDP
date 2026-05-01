@@ -1,0 +1,134 @@
+--- Starting Episode 1 ---
+[SECRET] True Spawn: (5,12)
+
+Step 1 | Observation: {"item_here": "plant", "paths_available": ["N", "E", "S", "W"]}
+Model Output:
+The current observation is a "plant" with paths available in all four cardinal directions (N, E, S, W). I will now identify all coordinates in the global map that match these criteria to establish a Candidate List.
+
+Candidate List:
+- (1, 16), (2, 4), (2, 10), (2, 12), (3, 3), (3, 10), (3, 15), (4, 4), (4, 5), (4, 11), (4, 18), (5, 7), (5, 9), (5, 12), (5, 13), (5, 16), (7, 7), (7, 10), (8, 1), (8, 3), (8, 4), (8, 10), (8, 13), (10, 13), (11, 1), (11, 11), (12, 12), (13, 3), (13, 17), (14, 3), (14, 7), (15, 5), (15, 10), (16, 6), (16, 14), (18, 2), (18, 3), (18, 4), (18, 10)   
+
+To reduce this uncertainty, I will evaluate which move (N, S, E, or W) creates the most distinct groups based on the item observed in the next cell.
+
+- move-N: 5 plant, 9 trashcan, 4 desk, 21 none
+- move-S: 6 plant, 8 trashcan, 9 desk, 16 none
+- move-E: 3 plant, 5 trashcan, 7 desk, 24 none
+- move-W: 3 plant, 4 trashcan, 8 desk, 24 none
+
+Move-S results in the smallest "none" group (16 candidates), which is the largest and most ambiguous group across all moves. Therefore, move-S is the most efficient action for reducing the candidate list.
+
+[ACTION: move-S]
+
+Step 2 | Observation: {"item_here": "none", "paths_available": ["N", "E", "S", "W"]}
+Model Output:
+I moved S. If I was at (1, 16), I am now at (1, 15). (1, 15) has no item (none) and paths [N, E, S, W]. This matches my observation. If I was at (2, 4), I am now at (2, 3), which has a desk. I eliminate (2, 4). Following this logic for all previous candidates:
+
+Eliminations:
+- (2, 4) -> (2, 3) is desk
+- (2, 12) -> (2, 11) is trashcan
+- (3, 3) -> (3, 2) is desk
+- (3, 10) -> (3, 9) is desk
+- (4, 4) -> (4, 3) is trashcan
+- (4, 5) -> (4, 4) is plant
+- (4, 11) -> (4, 10) is trashcan
+- (5, 7) -> (5, 6) is desk
+- (5, 9) -> (5, 8) is trashcan
+- (5, 13) -> (5, 12) is plant
+- (7, 10) -> (7, 9) is trashcan
+- (8, 1) -> (8, 0) has paths [N, E, W] (Mismatch)
+- (8, 4) -> (8, 3) is plant
+- (8, 13) -> (8, 12) is desk
+- (11, 1) -> (11, 0) is plant/paths mismatch
+- (13, 3) -> (13, 2) is trashcan
+- (13, 17) -> (13, 16) is desk
+- (14, 3) -> (14, 2) is trashcan
+- (15, 10) -> (15, 9) is desk
+- (16, 6) -> (16, 5) is desk
+- (18, 3) -> (18, 2) is plant
+- (18, 4) -> (18, 3) is plant
+- (18, 10) -> (18, 9) is trashcan
+
+Candidate List (current coordinates):
+(1, 15), (2, 9), (3, 14), (4, 17), (5, 11), (5, 15), (7, 6), (8, 2), (8, 9), (10, 12), (11, 10), (12, 11), (14, 6), (15, 4), (16, 13), (18, 1)
+
+To reduce uncertainty, I analyze the outcomes of possible moves:
+- move-N: All 16 candidates result in "plant". No information gained.
+- move-S: Results in "none" for 10 candidates, "desk" for 3, "trashcan" for 1, and "plant" for 1. (Max group size: 10)
+- move-E: Results in "none" for 8 candidates, "trashcan" for 4, and "desk" for 4. (Max group size: 8)
+- move-W: Results in "none" for 9 candidates, "desk" for 3, "trashcan" for 2, and "plant" for 2. (Max group size: 9) 
+
+The move-E action provides the most discrimination by minimizing the size of the largest resulting candidate group.  
+
+[ACTION: move-E]
+
+Step 3 | Observation: {"item_here": "trashcan", "paths_available": ["N", "E", "S", "W"]}
+Model Output:
+I moved E. If I was at (1, 15), I am now at (2, 15). (2, 15) has a trashcan and paths [N, E, S, W]. This matches my observation. If I was at (2, 9), I am now at (3, 9), which has a desk. I eliminate (2, 9). Following this logic for all previous candidates:
+
+Eliminations:
+- (2, 9) -> (3, 9) is desk
+- (3, 14) -> (4, 14) is none
+- (5, 11) -> (6, 11) is trashcan (Match)
+- (5, 15) -> (6, 15) is none
+- (7, 6) -> (8, 6) is trashcan (Match)
+- (8, 2) -> (9, 2) is desk
+- (8, 9) -> (9, 9) is desk
+- (10, 12) -> (11, 12) is none
+- (11, 10) -> (12, 10) is none
+- (12, 11) -> (13, 11) is none
+- (14, 6) -> (15, 6) is none
+- (15, 4) -> (16, 4) is none
+- (16, 13) -> (17, 13) is desk
+- (18, 1) -> (19, 1) is none
+
+Note: (4, 17) moves to (5, 17), which is a trashcan.
+
+Candidate List (current coordinates):
+(2, 15), (5, 17), (6, 11), (8, 6)
+
+To reduce uncertainty, I analyze the outcomes of possible moves:
+- move-N: (2, 15)->none, (5, 17)->desk, (6, 11)->none, (8, 6)->none. (One candidate isolated: (5, 17))
+- move-S: (2, 15)->none, (5, 17)->plant, (6, 11)->none, (8, 6)->none. (One candidate isolated: (5, 17))
+- move-E: (2, 15)->plant, (5, 17)->none, (6, 11)->none, (8, 6)->none. (One candidate isolated: (2, 15))
+- move-W: All candidates result in "none".
+
+I will choose move-N to attempt to isolate (5, 17).
+
+[ACTION: move-N]
+
+Step 4 | Observation: {"item_here": "none", "paths_available": ["N", "E", "S", "W"]}
+Model Output:
+I moved N. If I was at (2, 15), I am now at (2, 16). (2, 16) has no item (none) and paths [N, E, S, W]. This matches my observation. If I was at (5, 17), I am now at (5, 18), which has a desk. I eliminate (5, 17). If I was at (6, 11), I am now at (6, 12), which is "none" with paths [N, E, S, W]. If I was at (8, 6), I am now at (8, 7), which is "none" with paths [N, E, S, W].
+
+Candidate List: (2, 16), (6, 12), (8, 7)
+
+To reduce uncertainty, I analyze the outcomes of possible moves:
+- move-N: (2, 16) -> (2, 17) is desk; (6, 12) -> (6, 13) is none; (8, 7) -> (8, 8) is none. (Isolates (2, 16))       
+- move-S: All result in trashcan.
+- move-E: (2, 16) -> (3, 16) is none; (6, 12) -> (7, 12) is none; (8, 7) -> (9, 7) is none.
+- move-W: (2, 16) -> (1, 16) is plant; (6, 12) -> (5, 12) is plant; (8, 7) -> (7, 7) is plant.
+
+Move-N is the most effective action as it can isolate (2, 16) from the other two candidates.
+
+[ACTION: move-N]
+
+Step 5 | Observation: {"item_here": "none", "paths_available": ["N", "E", "S", "W"]}
+Model Output:
+I moved N. If I was at (2, 16), I am now at (2, 17), which has a desk. I eliminate (2, 16) from my candidate list. If I was at (6, 12), I am now at (6, 13), which has no item (none) and paths [N, E, S, W]. If I was at (8, 7), I am now at (8, 8), which has no item (none) and paths [N, E, S, W]. Both (6, 13) and (8, 8) match the observation.
+
+Candidate List: (6, 13), (8, 8)
+
+To reduce uncertainty, I analyze the outcomes of possible moves:
+- move-N: (6, 13) -> (6, 14) is "none"; (8, 8) -> (8, 9) is "none". (No distinction)
+- move-S: (6, 13) -> (6, 12) is "none"; (8, 8) -> (8, 7) is "none". (No distinction)
+- move-E: (6, 13) -> (7, 13) is "trashcan"; (8, 8) -> (9, 8) is "trashcan". (No distinction)
+- move-W: (6, 13) -> (5, 13) is "plant"; (8, 8) -> (7, 8) is "none". (Isolates candidates)
+
+Move-W is the most effective action as it provides distinct observations for the remaining candidates.
+
+[ACTION: move-W]
+
+Step 6 | Observation: {"item_here": "plant", "paths_available": ["N", "E", "S", "W"]}
+API Error: 500 INTERNAL. {'error': {'code': 500, 'message': 'Internal error encountered.', 'status': 'INTERNAL'}}
+
+--- Episode Finished ---
