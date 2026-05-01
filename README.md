@@ -14,4 +14,4 @@ If you want to run, you'll have to make a .env file with:
 GEMINI_API_KEY=cool_api_key
 ```
 
-to send requests to the model.
+to send requests to the model. Shouldn't be too bad as you can get a free API key from Google's Gemini API
